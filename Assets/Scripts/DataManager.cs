@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-[System.Serializable] // [Serializable]´Â Å¬·¡½º ¶Ç´Â ±¸Á¶Ã¼¸¦ Á÷·ÄÈ­ ÇÒ ¼ö ÀÖÀ½À» ³ªÅ¸³¿
+[System.Serializable] // [Serializable]ëŠ” í´ë˜ìŠ¤ ë˜ëŠ” êµ¬ì¡°ì²´ë¥¼ ì§ë ¬í™” í•  ìˆ˜ ìˆìŒì„ ë‚˜íƒ€ëƒ„
 public class SaveData 
 {
-    // intÇü º¯¼ö
-    public int stage_index; // ½ºÅ×ÀÌÁöÀÇ ¹øÈ£ º¯¼ö
-    public int health;      // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â
-    public int bgm_index;   // ¹è°æÀ½ÀÇ ¹øÈ£
+    // intí˜• ë³€ìˆ˜
+    public int stage_index; // ìŠ¤í…Œì´ì§€ì˜ ë²ˆí˜¸ ë³€ìˆ˜
+    public int health;      // í”Œë ˆì´ì–´ì˜ ì²´ë ¥
+    public int bgm_index;   // ë°°ê²½ìŒì˜ ë²ˆí˜¸
 
-    // boolÇü º¯¼ö
-    public bool is_show_text; // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÙÁö ¿©ºÎ
-    public bool is_show_bnt;  // ¼³¸í ¹öÆ°À» º¸¿©ÁÙÁö ¿©ºÎ
+    // boolí˜• ë³€ìˆ˜
+    public bool is_show_text; // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€
+    public bool is_show_bnt;  // ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€
 
-    // SoundManager º¯¼ö
-    public float bgm_vol; // ¹è°æÀ½ º¼·ı
-    public float sfx_vol; // È¿°úÀ½ º¼·ı
+    // SoundManager ë³€ìˆ˜
+    public float bgm_vol; // ë°°ê²½ìŒ ë³¼ë¥¨
+    public float sfx_vol; // íš¨ê³¼ìŒ ë³¼ë¥¨
 }
 
 public class DataManager : MonoBehaviour
@@ -30,34 +30,34 @@ public class DataManager : MonoBehaviour
         JsonLoad();
     }
 
-    // GameManager¿¡ ÀúÀåµÇ¾î ÀÖ´Â µ¥ÀÌÅÍ¸¦ »õ·Î¿î °´Ã¼(save_data)¿¡ ÀúÀå
+    // GameManagerì— ì €ì¥ë˜ì–´ ìˆëŠ” ë°ì´í„°ë¥¼ ìƒˆë¡œìš´ ê°ì²´(save_data)ì— ì €ì¥
     public void JsonSave()
     {
         SaveData save_data = new SaveData();
 
-        save_data.stage_index = GameManager.instance.stage_index;   // save_dataÀÇ ½ºÅ×ÀÌÁö ¹øÈ£¸¦ GameManager¿¡ ÀúÀå
-        save_data.health = GameManager.instance.health;             // save_dataÀÇ Ã¼·ÂÀ» GameManager¿¡ ÀúÀå
-        save_data.bgm_index = GameManager.instance.bgm_index;       // save_dataÀÇ ¹è°æÀ½ÀÇ ¹øÈ£¸¦ GameManager¿¡ ÀúÀå
+        save_data.stage_index = GameManager.instance.stage_index;   // save_dataì˜ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ë¥¼ GameManagerì— ì €ì¥
+        save_data.health = GameManager.instance.health;             // save_dataì˜ ì²´ë ¥ì„ GameManagerì— ì €ì¥
+        save_data.bgm_index = GameManager.instance.bgm_index;       // save_dataì˜ ë°°ê²½ìŒì˜ ë²ˆí˜¸ë¥¼ GameManagerì— ì €ì¥
 
-        save_data.is_show_text = GameManager.instance.is_show_text; // save_dataÀÇ ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÙÁö ¿©ºÎ¸¦ GameManager¿¡ ÀúÀå
-        save_data.is_show_bnt = GameManager.instance.is_show_bnt;   // save_dataÀÇ ¼³¸í ¹öÆ°À» º¸¿©ÁÙÁö ¿©ºÎ¸¦ GameManager¿¡ ÀúÀå
+        save_data.is_show_text = GameManager.instance.is_show_text; // save_dataì˜ ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¥¼ GameManagerì— ì €ì¥
+        save_data.is_show_bnt = GameManager.instance.is_show_bnt;   // save_dataì˜ ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¥¼ GameManagerì— ì €ì¥
 
-        save_data.bgm_vol = SoundManager.instance.bgm_slider.value; // save_dataÀÇ ¹è°æÀ½ º¼·ıÀ» GameManager¿¡ ÀúÀå
-        save_data.sfx_vol = SoundManager.instance.sfx_slider.value; // save_dataÀÇ È¿°úÀ½ º¼·ıÀ» GameManager¿¡ ÀúÀå
+        save_data.bgm_vol = SoundManager.instance.bgm_slider.value; // save_dataì˜ ë°°ê²½ìŒ ë³¼ë¥¨ì„ GameManagerì— ì €ì¥
+        save_data.sfx_vol = SoundManager.instance.sfx_slider.value; // save_dataì˜ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ GameManagerì— ì €ì¥
 
         string json = JsonUtility.ToJson(save_data, true);
 
         File.WriteAllText(path, json);
     }
 
-    // »õ·Î¿î °´Ã¼(save_data)¿¡ ÀúÀåÇß´ø µ¥ÀÌÅÍ¸¦ GameManager¿¡ ÀúÀå
-    public void JsonLoad() // µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À´Â ÇÔ¼ö
+    // ìƒˆë¡œìš´ ê°ì²´(save_data)ì— ì €ì¥í–ˆë˜ ë°ì´í„°ë¥¼ GameManagerì— ì €ì¥
+    public void JsonLoad() // ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
     {
         SaveData save_data = new SaveData();
 
-        if (!File.Exists(path)) // ÆÄÀÏ¿¡ ÀúÀåµÈ Á¤º¸°¡ ¾ø´Ù¸é (°ÔÀÓÀ» Ã³À½ ½ÃÀÛÇß´Ù¸é) -> ºÒ·¯¿Ã µ¥ÀÌÅÍ°¡ ¾øÀ¸´Ï ÃÊ±âÈ­ ÇØÁÖ°í ºÒ·¯¿È
+        if (!File.Exists(path)) // íŒŒì¼ì— ì €ì¥ëœ ì •ë³´ê°€ ì—†ë‹¤ë©´ (ê²Œì„ì„ ì²˜ìŒ ì‹œì‘í–ˆë‹¤ë©´) -> ë¶ˆëŸ¬ì˜¬ ë°ì´í„°ê°€ ì—†ìœ¼ë‹ˆ ì´ˆê¸°í™” í•´ì£¼ê³  ë¶ˆëŸ¬ì˜´
         {
-            // ÀúÀåÇÒ º¯¼öµéÀÇ °ªÀ» ½ÃÀÛÇÒ ¶§ÀÇ ÃÊ±â °ªÀ¸·Î ÃÊ±â
+            // ì €ì¥í•  ë³€ìˆ˜ë“¤ì˜ ê°’ì„ ì‹œì‘í•  ë•Œì˜ ì´ˆê¸° ê°’ìœ¼ë¡œ ì´ˆê¸°
             GameManager.instance.stage_index = 0; 
             GameManager.instance.health = 10;        
             GameManager.instance.bgm_index = 0;
@@ -69,28 +69,26 @@ public class DataManager : MonoBehaviour
             SoundManager.instance.bgm_slider.value = 0.5f;
             SoundManager.instance.sfx_slider.value = 0.5f;
 
-            JsonSave(); // ÃÊ±âÈ­µÈ º¯¼öµéÀÇ °ªÀ» GameManager¿¡ ÀúÀåÇÔ
+            JsonSave(); // ì´ˆê¸°í™”ëœ ë³€ìˆ˜ë“¤ì˜ ê°’ì„ GameManagerì— ì €ì¥í•¨
         }
 
-        else // ±×°Ô ¾Æ´Ï¶ó¸é (ÆÄÀÏ¿¡ ÀúÀåµÈ Á¤º¸°¡ ÀÖ´Ù¸é)
+        else // ê·¸ê²Œ ì•„ë‹ˆë¼ë©´ (íŒŒì¼ì— ì €ì¥ëœ ì •ë³´ê°€ ìˆë‹¤ë©´)
         {
             string load_json = File.ReadAllText(path);
             save_data = JsonUtility.FromJson<SaveData>(load_json);
 
-            if (save_data != null) // save_dataÀÇ °ªÀÌ nullÀÌ ¾Æ´Ï¸é (save_dataÀÇ °ªÀÌ ÀÖ´Ù¸é)
+            if (save_data != null) // save_dataì˜ ê°’ì´ nullì´ ì•„ë‹ˆë©´ (save_dataì˜ ê°’ì´ ìˆë‹¤ë©´)
             {
-                GameManager.instance.stage_index = save_data.stage_index;   // ÇöÀç ½ºÅ×ÀÌÁö ¹øÈ£¸¦ save_dataÀÇ ½ºÅ×ÀÌÁö ¹øÈ£·Î ÀúÀåÇÔ
-                GameManager.instance.health = save_data.health;             // ÇöÀç Ã¼·ÂÀ» save_dataÀÇ Ã¼·ÂÀ¸·Î ÀúÀåÇÔ
-                GameManager.instance.bgm_index = save_data.bgm_index;       // ¹è°æÀ½ÀÇ ¹øÈ£¸¦ save_dataÀÇ ¹è°æÀ½ÀÇ ¹øÈ£·Î ÀúÀåÇÔ
+                GameManager.instance.stage_index = save_data.stage_index;   // í˜„ì¬ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ë¥¼ save_dataì˜ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ë¡œ ì €ì¥í•¨
+                GameManager.instance.health = save_data.health;             // í˜„ì¬ ì²´ë ¥ì„ save_dataì˜ ì²´ë ¥ìœ¼ë¡œ ì €ì¥í•¨
+                GameManager.instance.bgm_index = save_data.bgm_index;       // ë°°ê²½ìŒì˜ ë²ˆí˜¸ë¥¼ save_dataì˜ ë°°ê²½ìŒì˜ ë²ˆí˜¸ë¡œ ì €ì¥í•¨
 
-                GameManager.instance.is_show_text = save_data.is_show_text; // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÙÁö ¿©ºÎ¸¦ save_dataÀÇ ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÙÁö ¿©ºÎ·Î ÀúÀåÇÔ
-                GameManager.instance.is_show_bnt = save_data.is_show_bnt;   // ¼³¸í ¹öÆ°À» º¸¿©ÁÙÁö ¿©ºÎ¸¦ save_dataÀÇ ¼³¸í ¹öÆ°À» º¸¿©ÁÙÁö ¿©ºÎ·Î ÀúÀåÇÔ
+                GameManager.instance.is_show_text = save_data.is_show_text; // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¥¼ save_dataì˜ ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¡œ ì €ì¥í•¨
+                GameManager.instance.is_show_bnt = save_data.is_show_bnt;   // ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¥¼ save_dataì˜ ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€ë¡œ ì €ì¥í•¨
 
-                SoundManager.instance.bgm_slider.value = save_data.bgm_vol; // ÇöÀç ¹è°æÀ½ º¼·ıÀ» save_dataÀÇ ¹è°æÀ½ º¼·ıÀ¸·Î ÀúÀåÇÔ
-                SoundManager.instance.sfx_slider.value = save_data.sfx_vol; // ÇöÀç È¿°úÀ½ º¼·ıÀ» save_dataÀÇ È¿°úÀ½ º¼·ıÀ¸·Î ÀúÀåÇÔ
+                SoundManager.instance.bgm_slider.value = save_data.bgm_vol; // í˜„ì¬ ë°°ê²½ìŒ ë³¼ë¥¨ì„ save_dataì˜ ë°°ê²½ìŒ ë³¼ë¥¨ìœ¼ë¡œ ì €ì¥í•¨
+                SoundManager.instance.sfx_slider.value = save_data.sfx_vol; // í˜„ì¬ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ save_dataì˜ íš¨ê³¼ìŒ ë³¼ë¥¨ìœ¼ë¡œ ì €ì¥í•¨
             }
         }
     }
-
-
 }
