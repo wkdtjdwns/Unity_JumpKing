@@ -8,64 +8,64 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance; // GameManager ½ºÅ©¸³Æ®¸¦ °¡Áø ¿ÀºêÁ§Æ® º¯¼ö
+    public static GameManager instance; // GameManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ ë³€ìˆ˜
 
-    // ¼³¸í¿¡ ´ëÇÑ º¯¼öµé
-    public GameObject explan; // ¼³¸íÀ» º¸¿©ÁÖ´Â ÀÌ¹ÌÁöµéÀ» °ü¸®ÇÏ´Â ¿ÀºêÁ§Æ® º¯¼ö
-    public Button explan_bnt; // ¼³¸íÀ» º¸¿©ÁÙÁö ¸»Áö ¼±ÅÃÇÒ ¼ö ÀÖ°Ô ÇÏ´Â ¹öÆ° º¯¼ö
-    public Text bnt_text;     // À§ ¹öÆ°ÀÇ ÅØ½ºÆ® º¯¼ö
-    public bool is_show;      // ¼³¸íÀ» º¸¿©ÁÖ´ÂÁö ¿©ºÎ
+    // ì„¤ëª…ì— ëŒ€í•œ ë³€ìˆ˜ë“¤
+    public GameObject explan; // ì„¤ëª…ì„ ë³´ì—¬ì£¼ëŠ” ì´ë¯¸ì§€ë“¤ì„ ê´€ë¦¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ ë³€ìˆ˜
+    public Button explan_bnt; // ì„¤ëª…ì„ ë³´ì—¬ì¤„ì§€ ë§ì§€ ì„ íƒí•  ìˆ˜ ìˆê²Œ í•˜ëŠ” ë²„íŠ¼ ë³€ìˆ˜
+    public Text bnt_text;     // ìœ„ ë²„íŠ¼ì˜ í…ìŠ¤íŠ¸ ë³€ìˆ˜
+    public bool is_show;      // ì„¤ëª…ì„ ë³´ì—¬ì£¼ëŠ”ì§€ ì—¬ë¶€
 
-    public Text tip_text;     // ¼³¸íÀÇ ÅØ½ºÆ® Áß tip ÅØ½ºÆ®
+    public Text tip_text;     // ì„¤ëª…ì˜ í…ìŠ¤íŠ¸ ì¤‘ tip í…ìŠ¤íŠ¸
 
-    // ½ºÅ×ÀÌÁö ÀüÈ¯¿¡ ´ëÇÑ º¯¼öµé
-    public GameObject[] stages; // ½ºÅ×ÀÌÁöµéÀ» °ü¸®ÇÒ ¹è¿­ º¯¼ö
-    public int stage_index;     // ½ºÅ×ÀÌÁöÀÇ ¹øÈ£ º¯¼ö
-    public Text stage_text;     // ½ºÅ×ÀÌÁö ÅØ½ºÆ® º¯¼ö
+    // ìŠ¤í…Œì´ì§€ ì „í™˜ì— ëŒ€í•œ ë³€ìˆ˜ë“¤
+    public GameObject[] stages; // ìŠ¤í…Œì´ì§€ë“¤ì„ ê´€ë¦¬í•  ë°°ì—´ ë³€ìˆ˜
+    public int stage_index;     // ìŠ¤í…Œì´ì§€ì˜ ë²ˆí˜¸ ë³€ìˆ˜
+    public Text stage_text;     // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ ë³€ìˆ˜
 
-    public Camera main_camera; // Ä«¸Ş¶ó º¯¼ö
+    public Camera main_camera; // ì¹´ë©”ë¼ ë³€ìˆ˜
 
-    // ÇÃ·¹ÀÌ¾î¿¡ ´ëÇÑ º¯¼öµé
-    public int health;         // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â
+    // í”Œë ˆì´ì–´ì— ëŒ€í•œ ë³€ìˆ˜ë“¤
+    public int health;         // í”Œë ˆì´ì–´ì˜ ì²´ë ¥
 
-    // PlayerMove¿¡ ´ëÇÑ º¯¼ö
-    public PlayerMove player; // PlayerMove ½ºÅ©¸³Æ®¸¦ º¯¼ö player¿¡ ÀúÀåÇÔ
+    // PlayerMoveì— ëŒ€í•œ ë³€ìˆ˜
+    public PlayerMove player; // PlayerMove ìŠ¤í¬ë¦½íŠ¸ë¥¼ ë³€ìˆ˜ playerì— ì €ì¥í•¨
 
-    // esc Ã¢(¿É¼Ç Ã¢)¿¡ ´ëÇÑ º¯¼ö
-    public Image option; // ¿É¼Ç Ã¢ÀÇ ¿ÀºêÁ§Æ® º¯¼ö
-    bool is_option;      // esc Ã¢ÀÌ ¶ß°í ÀÖ´ÂÁö ¿©ºÎ
-    bool is_live;        // ÇöÀç ½Ã°£ÀÌ Èå¸£°í ÀÖ´ÂÁö ¿©ºÎ
+    // esc ì°½(ì˜µì…˜ ì°½)ì— ëŒ€í•œ ë³€ìˆ˜
+    public Image option; // ì˜µì…˜ ì°½ì˜ ì˜¤ë¸Œì íŠ¸ ë³€ìˆ˜
+    bool is_option;      // esc ì°½ì´ ëœ¨ê³  ìˆëŠ”ì§€ ì—¬ë¶€
+    bool is_live;        // í˜„ì¬ ì‹œê°„ì´ íë¥´ê³  ìˆëŠ”ì§€ ì—¬ë¶€
 
-    // esc Ã¢(¿É¼Ç Ã¢)¿¡¼­ °ü¸® ÇÒ º¯¼ö
-    public GameObject stage_text_obj; // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ °ü¸®ÇÒ ¿ÀºêÁ§Æ®
-    public GameObject explan_bnt_obj; // ¼³¸í ¹öÆ°À» °ü¸®ÇÒ ¿ÀºêÁ§Æ®
+    // esc ì°½(ì˜µì…˜ ì°½)ì—ì„œ ê´€ë¦¬ í•  ë³€ìˆ˜
+    public GameObject stage_text_obj; // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ê´€ë¦¬í•  ì˜¤ë¸Œì íŠ¸
+    public GameObject explan_bnt_obj; // ì„¤ëª… ë²„íŠ¼ì„ ê´€ë¦¬í•  ì˜¤ë¸Œì íŠ¸
 
-    public Text stage_bnt_text;       // ½ºÅ×ÀÌÁö ÅØ½ºÆ® ¹öÆ°À» ´©¸¦ ½Ã ¹Ù²ğ ÅØ½ºÆ® (º¸ÀÌ±â / ¼û±â±â)
-    public Text explan_bnt_text;      // ¼³¸í ¹öÆ°À» ´©¸¦ ½Ã ¹Ù²ğ ÅØ½ºÆ® (º¸ÀÌ±â / ¼û±â±â)
+    public Text stage_bnt_text;       // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ ë²„íŠ¼ì„ ëˆ„ë¥¼ ì‹œ ë°”ë€” í…ìŠ¤íŠ¸ (ë³´ì´ê¸° / ìˆ¨ê¸°ê¸°)
+    public Text explan_bnt_text;      // ì„¤ëª… ë²„íŠ¼ì„ ëˆ„ë¥¼ ì‹œ ë°”ë€” í…ìŠ¤íŠ¸ (ë³´ì´ê¸° / ìˆ¨ê¸°ê¸°)
 
-    public bool is_show_text;         // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÙÁö ¿©ºÎ
-    public bool is_show_bnt;          // ¼³¸í ¹öÆ°À» º¸¿©ÁÙÁö ¿©ºÎ
+    public bool is_show_text;         // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€
+    public bool is_show_bnt;          // ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤„ì§€ ì—¬ë¶€
 
-    // Àç½ÃÀÛ¿¡ ´ëÇÑ º¯¼ö
+    // ì¬ì‹œì‘ì— ëŒ€í•œ ë³€ìˆ˜
     public GameObject restart_bnt;
     public Text restart_text;
 
-    // bgm¿¡ ´ëÇÑ º¯¼ö
+    // bgmì— ëŒ€í•œ ë³€ìˆ˜
     AudioSource bgm_player;
     public int bgm_index;
     public Button[] bgm_button;
 
-    // DataManager¿¡ ´ëÇÑ º¯¼ö
+    // DataManagerì— ëŒ€í•œ ë³€ìˆ˜
     DataManager data_manager;    
     public GameObject data_manager_obj;
 
-    void Awake() // °ÔÀÓÀ» ½ÃÀÛÇÒ ¶§ ÇÑ¹ø
+    void Awake() // ê²Œì„ì„ ì‹œì‘í•  ë•Œ í•œë²ˆ
     {
         instance = this;
 
-        is_show = false;     // ¼³¸íÀ» ¼û±è
-        is_show_text = true; // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ º¸¿©ÁÜ
-        is_show_bnt = true;  // ¼³¸í ¹öÆ°À» º¸¿©ÁÜ
+        is_show = false;     // ì„¤ëª…ì„ ìˆ¨ê¹€
+        is_show_text = true; // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì¤Œ
+        is_show_bnt = true;  // ì„¤ëª… ë²„íŠ¼ì„ ë³´ì—¬ì¤Œ
 
         is_live = true;
 
@@ -76,222 +76,222 @@ public class GameManager : MonoBehaviour
         bgm_player = GameObject.Find("Bgm Player").GetComponent<AudioSource>();
     }
 
-    void Start() // Awake() ÇÔ¼ö ´ÙÀ½¿¡
+    void Start() // Awake() í•¨ìˆ˜ ë‹¤ìŒì—
     {
         Invoke("LoadData", 0.1f);
     }
 
-    void Update() // ¸Å ÇÁ·¹ÀÓ¸¶´Ù
+    void Update() // ë§¤ í”„ë ˆì„ë§ˆë‹¤
     {
-        // °¢°¢ÀÇ bool º¯¼öÀÇ °ª¿¡ µû¶ó º¸¿©ÁÖ°Å³ª ¼û±è
+        // ê°ê°ì˜ bool ë³€ìˆ˜ì˜ ê°’ì— ë”°ë¼ ë³´ì—¬ì£¼ê±°ë‚˜ ìˆ¨ê¹€
         explan.SetActive(is_show);
         stage_text_obj.SetActive(is_show_text);
         explan_bnt_obj.SetActive(is_show_bnt);
         
-        // ½ºÅ×ÀÌÁö¿¡ µû¸¥ ÅØ½ºÆ® ÀüÈ¯
-        stage_text.text = string.Format("{0} ½ºÅ×ÀÌÁö", (stage_index + 1)); // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ { (stage_indexÀÇ °ª + 1) } ½ºÅ×ÀÌÁö ·Î ¹Ù²Ş
+        // ìŠ¤í…Œì´ì§€ì— ë”°ë¥¸ í…ìŠ¤íŠ¸ ì „í™˜
+        stage_text.text = string.Format("{0} ìŠ¤í…Œì´ì§€", (stage_index + 1)); // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ { (stage_indexì˜ ê°’ + 1) } ìŠ¤í…Œì´ì§€ ë¡œ ë°”ê¿ˆ
 
-        // ÇöÀç Ã¼·Â¿¡ µû¸¥ ÅØ½ºÆ® ÀüÈ¯
-        if (health < 2) tip_text.text = string.Format("ÇöÀç »ı¸íÀº ÃÑ {0}°³! Å«ÀÏÀÌ¾ß! Á¶½ÉÇØ!!!\r\n³»¸®¸· / ¿À¸£¸· ±æ¿¡¼­´Â Á¡ÇÁ ºÒ°¡´ÉÇØ!\r\nÁ¡ÇÁ°¡ ¾È µÉ¶§¿¡´Â Á¦ÀÚ¸® Á¡ÇÁ!\r\n¸¸¾à ÀÌµ¿ÀÌ ¾È µÉ¿¡´Â Á¶±İ¸¸ ±â´Ù·Áº¸ÀÚ!", health);
-        else if (health < 4) tip_text.text = string.Format("ÇöÀç »ı¸íÀº ÃÑ {0}°³! ÁıÁß! ÁıÁß!\r\n³»¸®¸· / ¿À¸£¸· ±æ¿¡¼­´Â Á¡ÇÁ ºÒ°¡´ÉÇØ!\r\nÁ¡ÇÁ°¡ ¾È µÉ¶§¿¡´Â Á¦ÀÚ¸® Á¡ÇÁ!\r\n¸¸¾à ÀÌµ¿ÀÌ ¾È µÉ¿¡´Â Á¶±İ¸¸ ±â´Ù·Áº¸ÀÚ!", health);       
-        else if (health < 6) tip_text.text = string.Format("ÇöÀç »ı¸íÀº ÃÑ {0}°³! ±äÀå ÇØ¾ß°Ú´Âµ¥?\r\n³»¸®¸· / ¿À¸£¸· ±æ¿¡¼­´Â Á¡ÇÁ ºÒ°¡´ÉÇØ!\r\nÁ¡ÇÁ°¡ ¾È µÉ¶§¿¡´Â Á¦ÀÚ¸® Á¡ÇÁ!\r\n¸¸¾à ÀÌµ¿ÀÌ ¾È µÉ¿¡´Â Á¶±İ¸¸ ±â´Ù·Áº¸ÀÚ!", health);
-        else tip_text.text = string.Format("ÇöÀç »ı¸íÀº ÃÑ {0}°³!\r\n³»¸®¸· / ¿À¸£¸· ±æ¿¡¼­´Â Á¡ÇÁ ºÒ°¡´ÉÇØ!\r\nÁ¡ÇÁ°¡ ¾È µÉ¶§¿¡´Â Á¦ÀÚ¸® Á¡ÇÁ!\r\n¸¸¾à ÀÌµ¿ÀÌ ¾È µÉ¿¡´Â Á¶±İ¸¸ ±â´Ù·Áº¸ÀÚ!", health);
+        // í˜„ì¬ ì²´ë ¥ì— ë”°ë¥¸ í…ìŠ¤íŠ¸ ì „í™˜
+        if (health < 2) tip_text.text = string.Format("í˜„ì¬ ìƒëª…ì€ ì´ {0}ê°œ! í°ì¼ì´ì•¼! ì¡°ì‹¬í•´!!!\r\në‚´ë¦¬ë§‰ / ì˜¤ë¥´ë§‰ ê¸¸ì—ì„œëŠ” ì í”„ ë¶ˆê°€ëŠ¥í•´!\r\nì í”„ê°€ ì•ˆ ë ë•Œì—ëŠ” ì œìë¦¬ ì í”„!\r\në§Œì•½ ì´ë™ì´ ì•ˆ ë ì—ëŠ” ì¡°ê¸ˆë§Œ ê¸°ë‹¤ë ¤ë³´ì!", health);
+        else if (health < 4) tip_text.text = string.Format("í˜„ì¬ ìƒëª…ì€ ì´ {0}ê°œ! ì§‘ì¤‘! ì§‘ì¤‘!\r\në‚´ë¦¬ë§‰ / ì˜¤ë¥´ë§‰ ê¸¸ì—ì„œëŠ” ì í”„ ë¶ˆê°€ëŠ¥í•´!\r\nì í”„ê°€ ì•ˆ ë ë•Œì—ëŠ” ì œìë¦¬ ì í”„!\r\në§Œì•½ ì´ë™ì´ ì•ˆ ë ì—ëŠ” ì¡°ê¸ˆë§Œ ê¸°ë‹¤ë ¤ë³´ì!", health);       
+        else if (health < 6) tip_text.text = string.Format("í˜„ì¬ ìƒëª…ì€ ì´ {0}ê°œ! ê¸´ì¥ í•´ì•¼ê² ëŠ”ë°?\r\në‚´ë¦¬ë§‰ / ì˜¤ë¥´ë§‰ ê¸¸ì—ì„œëŠ” ì í”„ ë¶ˆê°€ëŠ¥í•´!\r\nì í”„ê°€ ì•ˆ ë ë•Œì—ëŠ” ì œìë¦¬ ì í”„!\r\në§Œì•½ ì´ë™ì´ ì•ˆ ë ì—ëŠ” ì¡°ê¸ˆë§Œ ê¸°ë‹¤ë ¤ë³´ì!", health);
+        else tip_text.text = string.Format("í˜„ì¬ ìƒëª…ì€ ì´ {0}ê°œ!\r\në‚´ë¦¬ë§‰ / ì˜¤ë¥´ë§‰ ê¸¸ì—ì„œëŠ” ì í”„ ë¶ˆê°€ëŠ¥í•´!\r\nì í”„ê°€ ì•ˆ ë ë•Œì—ëŠ” ì œìë¦¬ ì í”„!\r\në§Œì•½ ì´ë™ì´ ì•ˆ ë ì—ëŠ” ì¡°ê¸ˆë§Œ ê¸°ë‹¤ë ¤ë³´ì!", health);
 
-        // ¿É¼Ç UI °ü·Ã ÄÚµå
-        if (Input.GetButtonDown("Cancel")) // ESC ¹öÆ°À» ´­·¶À» ¶§ (ESC¸¦ ´©¸£¸é true¸¦ ¹İÈ¯)
+        // ì˜µì…˜ UI ê´€ë ¨ ì½”ë“œ
+        if (Input.GetButtonDown("Cancel")) // ESC ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ (ESCë¥¼ ëˆ„ë¥´ë©´ trueë¥¼ ë°˜í™˜)
         {
-            Option(); // ¿É¼Ç Ã¢À» ÄÑ°Å³ª ²û
+            Option(); // ì˜µì…˜ ì°½ì„ ì¼œê±°ë‚˜ ë”
         }
     }
 
-    public void ClickExplanBnt() // ¼³¸í ¼û±â±â / º¸ÀÌ±â ¹öÆ°À» ´­·¶À» ¶§
+    public void ClickExplanBnt() // ì„¤ëª… ìˆ¨ê¸°ê¸° / ë³´ì´ê¸° ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
     {
-        is_show = !is_show;           // ¼³¸íÀ» º¸¿©ÁÖ´ÂÁö ¿©ºÎ¸¦ ¹İ´ë·Î ¸¸µê
+        is_show = !is_show;           // ì„¤ëª…ì„ ë³´ì—¬ì£¼ëŠ”ì§€ ì—¬ë¶€ë¥¼ ë°˜ëŒ€ë¡œ ë§Œë“¦
 
         if (is_show)                  // is_show = true
-            bnt_text.text = "¼û±â±â"; // ¹öÆ°ÀÇ ÅØ½ºÆ®¸¦ "¼û±â±â"·Î ¹Ù²Ş
+            bnt_text.text = "ìˆ¨ê¸°ê¸°"; // ë²„íŠ¼ì˜ í…ìŠ¤íŠ¸ë¥¼ "ìˆ¨ê¸°ê¸°"ë¡œ ë°”ê¿ˆ
 
         else                          // is_show = false
-            bnt_text.text = "º¸ÀÌ±â"; // ¹öÆ°ÀÇ ÅØ½ºÆ®¸¦ "º¸ÀÌ±â"·Î ¹Ù²Ş
+            bnt_text.text = "ë³´ì´ê¸°"; // ë²„íŠ¼ì˜ í…ìŠ¤íŠ¸ë¥¼ "ë³´ì´ê¸°"ë¡œ ë°”ê¿ˆ
 
         SoundManager.instance.PlaySound("Button");
     }
 
-    public void NextStage() // ½ºÅ×ÀÌÁö¸¦ ÀüÈ¯½ÃÅ°´Â ÇÔ¼ö
+    public void NextStage() // ìŠ¤í…Œì´ì§€ë¥¼ ì „í™˜ì‹œí‚¤ëŠ” í•¨ìˆ˜
     { 
-        SoundManager.instance.PlaySound("Clear");                 // ½ºÅ×ÀÌÁö Å¬¸®¾î »ç¿îµå Ãâ·Â
+        SoundManager.instance.PlaySound("Clear");                 // ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ì‚¬ìš´ë“œ ì¶œë ¥
 
-        if (stage_index < stages.Length-1)                        // ÇöÀç ½ºÅ×ÀÌÁö ¹øÈ£°¡ ¸ÊÀÇ °³¼öº¸´Ù ÀÛÀ» ¶§
+        if (stage_index < stages.Length-1)                        // í˜„ì¬ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ê°€ ë§µì˜ ê°œìˆ˜ë³´ë‹¤ ì‘ì„ ë•Œ
         {
-            stages[stage_index].SetActive(false);                 // ÇöÀç ½ºÅ×ÀÌÁö¸¦ ºñÈ°¼ºÈ­ ½ÃÅ°°í
+            stages[stage_index].SetActive(false);                 // í˜„ì¬ ìŠ¤í…Œì´ì§€ë¥¼ ë¹„í™œì„±í™” ì‹œí‚¤ê³ 
 
-            stage_index++;                                        // ½ºÅ×ÀÌÁöÀÇ ¹øÈ£¸¦ 1 ´õÇÑµÚ
+            stage_index++;                                        // ìŠ¤í…Œì´ì§€ì˜ ë²ˆí˜¸ë¥¼ 1 ë”í•œë’¤
 
-            stages[stage_index].SetActive(true);                  // ±× ¹øÈ£¿¡ ¸Â´Â ½ºÅ×ÀÌÁö¸¦ È°¼ºÈ­ ½ÃÅ°°í
+            stages[stage_index].SetActive(true);                  // ê·¸ ë²ˆí˜¸ì— ë§ëŠ” ìŠ¤í…Œì´ì§€ë¥¼ í™œì„±í™” ì‹œí‚¤ê³ 
 
-            PlayerReposition();                                   // ÇÃ·¹ÀÌ¾î¸¦ ¿øÁ¡À¸·Î µÇµ¹¸²
+            PlayerReposition();                                   // í”Œë ˆì´ì–´ë¥¼ ì›ì ìœ¼ë¡œ ë˜ëŒë¦¼
         }
 
-        else                                                      // ÇöÀç ½ºÅ×ÀÌÁö ¹øÈ£°¡ ¸ÊÀÇ °³¼öº¸´Ù Å©°Å³ª °°À» ¶§ (°ÔÀÓ¿¡ ÀÖ´Â ¸ğµç ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾î ÇßÀ» ¶§)
+        else                                                      // í˜„ì¬ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ê°€ ë§µì˜ ê°œìˆ˜ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ì„ ë•Œ (ê²Œì„ì— ìˆëŠ” ëª¨ë“  ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´ í–ˆì„ ë•Œ)
         {
-            // °ÔÀÓ °ü·Ã ÄÚµå
-            Time.timeScale = 0;                                   // ½Ã°£À» ¸ØÃçµÎ°í
+            // ê²Œì„ ê´€ë ¨ ì½”ë“œ
+            Time.timeScale = 0;                                   // ì‹œê°„ì„ ë©ˆì¶°ë‘ê³ 
 
-            Debug.Log("°ÔÀÓ Å¬¸®¾î!");                            // °ÔÀÓÀ» Å¬¸®¾î Çß´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁÖ°í
+            Debug.Log("ê²Œì„ í´ë¦¬ì–´!");                            // ê²Œì„ì„ í´ë¦¬ì–´ í–ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì£¼ê³ 
 
-            restart_text.text = "Å¬¸®¾î!";                        // Àç½ÃÀÛ ¹öÆ°ÀÇ ÅØ½ºÆ®¸¦ "Å¬¸®¾î"·Î ¹Ù²Û µÚ
+            restart_text.text = "í´ë¦¬ì–´!";                        // ì¬ì‹œì‘ ë²„íŠ¼ì˜ í…ìŠ¤íŠ¸ë¥¼ "í´ë¦¬ì–´"ë¡œ ë°”ê¾¼ ë’¤
 
-            restart_bnt.SetActive(true);                          // Àç½ÃÀÛ ¹öÆ° È°¼ºÈ­
+            restart_bnt.SetActive(true);                          // ì¬ì‹œì‘ ë²„íŠ¼ í™œì„±í™”
 
-            // ¹è°æÀ½ °ü·Ã ÄÚµå
-            bgm_player.clip = SoundManager.instance.bgm_clips[3]; // ¹è°æÀ½À» Å¬¸®¾î bgmÀ¸·Î ¹Ù²Ù°í
-            bgm_player.Play();                                    // ¹è°æÀ½ ÇÃ·¹ÀÌ
+            // ë°°ê²½ìŒ ê´€ë ¨ ì½”ë“œ
+            bgm_player.clip = SoundManager.instance.bgm_clips[3]; // ë°°ê²½ìŒì„ í´ë¦¬ì–´ bgmìœ¼ë¡œ ë°”ê¾¸ê³ 
+            bgm_player.Play();                                    // ë°°ê²½ìŒ í”Œë ˆì´
         }
 
-        // ½ºÅ×ÀÌÁö ÀüÈ¯¿¡ µû¸¥ Ä«¸Ş¶ó ÀüÈ¯ ÄÚµå
-        if (stage_index != 3) // ÇöÀç ½ºÅ×ÀÌÁö°¡ Æ¯Á¤ ½ºÅ×ÀÌÁö(3 ½ºÅ×ÀÌÁö)°¡ ¾Æ´Ò ¶§
+        // ìŠ¤í…Œì´ì§€ ì „í™˜ì— ë”°ë¥¸ ì¹´ë©”ë¼ ì „í™˜ ì½”ë“œ
+        if (stage_index != 3) // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ íŠ¹ì • ìŠ¤í…Œì´ì§€(3 ìŠ¤í…Œì´ì§€)ê°€ ì•„ë‹ ë•Œ
         {
-            main_camera.transform.position = new Vector3(-7.5f, -4.5f, -10);  // ½ÃÁ¡À» ¿ø·¡´ë·Î µ¹·Á³õÀ½
+            main_camera.transform.position = new Vector3(-7.5f, -4.5f, -10);  // ì‹œì ì„ ì›ë˜ëŒ€ë¡œ ëŒë ¤ë†“ìŒ
 
-            instance.transform.position = new Vector3(0, -6.5f, 0);           // GamaManager¸¦ Á¦ÀÚ¸®·Î µ¹·Á ³õÀ½ (¶³¾îÁ³À» ¶§ µ¥¹ÌÁö¸¦ ÀÔÈ÷±â À§ÇÔ)
+            instance.transform.position = new Vector3(0, -6.5f, 0);           // GamaManagerë¥¼ ì œìë¦¬ë¡œ ëŒë ¤ ë†“ìŒ (ë–¨ì–´ì¡Œì„ ë•Œ ë°ë¯¸ì§€ë¥¼ ì…íˆê¸° ìœ„í•¨)
         }
 
-        else // ÇöÀç ½ºÅ×ÀÌÁö°¡ Æ¯Á¤ ½ºÅ×ÀÌÁö(3 ½ºÅ×ÀÌÁö)ÀÏ ¶§
+        else // í˜„ì¬ ìŠ¤í…Œì´ì§€ê°€ íŠ¹ì • ìŠ¤í…Œì´ì§€(3 ìŠ¤í…Œì´ì§€)ì¼ ë•Œ
         {
-            health = 1;                                                       // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀ» 1·Î ¸¸µé¾î¼­ 1¹ø¸¸ µ¥¹ÌÁö¸¦ ¹Ş¾Æµµ Á×°Ô ¸¸µê 
+            health = 1;                                                       // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì„ 1ë¡œ ë§Œë“¤ì–´ì„œ 1ë²ˆë§Œ ë°ë¯¸ì§€ë¥¼ ë°›ì•„ë„ ì£½ê²Œ ë§Œë“¦ 
 
-            main_camera.transform.position = new Vector3(-7.5f, -9.5f, -10);  // ¿øÈ°ÇÑ °ÔÀÓÀ» À§ÇØ ½ÃÁ¡À» Á¶Á¤ÇÔ
+            main_camera.transform.position = new Vector3(-7.5f, -9.5f, -10);  // ì›í™œí•œ ê²Œì„ì„ ìœ„í•´ ì‹œì ì„ ì¡°ì •í•¨
 
-            instance.transform.position = new Vector3(0, 10000, -1);          // GamaManager¸¦ ¿Üµı °÷¿¡ ³õÀ½ (¶³¾îÁ³À» ¶§ µ¥¹ÌÁö¸¦ ÀÔÈ÷Áö ¾Ê±â À§ÇÔ)
+            instance.transform.position = new Vector3(0, 10000, -1);          // GamaManagerë¥¼ ì™¸ë”´ ê³³ì— ë†“ìŒ (ë–¨ì–´ì¡Œì„ ë•Œ ë°ë¯¸ì§€ë¥¼ ì…íˆì§€ ì•Šê¸° ìœ„í•¨)
 
         }
     }
 
-    public void HealthDown() // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀ» °¨¼Ò½ÃÅ°´Â ÇÔ¼ö
+    public void HealthDown() // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì„ ê°ì†Œì‹œí‚¤ëŠ” í•¨ìˆ˜
     {
-        if (health > 1)                                              // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀÌ 1º¸´Ù ¸¹´Ù¸é
+        if (health > 1)                                              // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì´ 1ë³´ë‹¤ ë§ë‹¤ë©´
         { 
-            health--;                                                // Ã¼·ÂÀ» °¨¼Ò ½ÃÅ´
+            health--;                                                // ì²´ë ¥ì„ ê°ì†Œ ì‹œí‚´
 
-            SoundManager.instance.PlaySound("Damaged");              // µ¥¹ÌÁöÀ» ¹Ş´Â »ç¿îµå Ãâ·Â
+            SoundManager.instance.PlaySound("Damaged");              // ë°ë¯¸ì§€ì„ ë°›ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
         }
 
-        else                                                         // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀÌ 1º¸´Ù Àû°Å³ª °°´Ù¸é
+        else                                                         // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì´ 1ë³´ë‹¤ ì ê±°ë‚˜ ê°™ë‹¤ë©´
         {
-            instance.transform.position = new Vector3(0, 10000, -1); // GamaManager¸¦ ¿Üµı °÷¿¡ ³õÀ½ (¶³¾îÁ®¼­ Á×¾úÀ» ¶§ÀÇ ¹ö±× ¹æÁö)
+            instance.transform.position = new Vector3(0, 10000, -1); // GamaManagerë¥¼ ì™¸ë”´ ê³³ì— ë†“ìŒ (ë–¨ì–´ì ¸ì„œ ì£½ì—ˆì„ ë•Œì˜ ë²„ê·¸ ë°©ì§€)
 
-            Time.timeScale = 1;                                      // ½Ã°£À» ¸ØÃß°Ô ÇÔ
+            Time.timeScale = 0;                                      // ì‹œê°„ì„ ë©ˆì¶”ê²Œ í•¨
 
-            SoundManager.instance.PlaySound("Die");                  // Á×´Â »ç¿îµå Ãâ·Â
+            SoundManager.instance.PlaySound("Die");                  // ì£½ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
 
-            Debug.Log("Á×¾ú½À´Ï´Ù!");                                // ConsolÃ¢¿¡ Á×¾ú´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁÜ
+            Debug.Log("ì£½ì—ˆìŠµë‹ˆë‹¤!");                                // Consolì°½ì— ì£½ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤Œ
 
-            is_show = false;                                         // ¼³¸íÀ» ¼û±è
-            is_show_text = false;                                    // ½ºÅ×ÀÌÁö ÅØ½ºÆ®¸¦ ¼û±è
-            is_show_bnt = false;                                     // ¼³¸í ¹öÆ°À» ¼û±è
+            is_show = false;                                         // ì„¤ëª…ì„ ìˆ¨ê¹€
+            is_show_text = false;                                    // ìŠ¤í…Œì´ì§€ í…ìŠ¤íŠ¸ë¥¼ ìˆ¨ê¹€
+            is_show_bnt = false;                                     // ì„¤ëª… ë²„íŠ¼ì„ ìˆ¨ê¹€
 
-            restart_bnt.SetActive(true);                             // Àç½ÃÀÛ ¹öÆ° È°¼ºÈ­
+            restart_bnt.SetActive(true);                             // ì¬ì‹œì‘ ë²„íŠ¼ í™œì„±í™”
         }
     }
 
-    public void Restart() // °ÔÀÓÀ» Àç½ÃÀÛÇÏ´Â ÇÔ¼ö
+    public void Restart() // ê²Œì„ì„ ì¬ì‹œì‘í•˜ëŠ” í•¨ìˆ˜
     {
-        Time.timeScale = 1;                         // ½Ã°£ÀÌ Èê·¯°¡°Ô ÇÔ
+        Time.timeScale = 1;                         // ì‹œê°„ì´ í˜ëŸ¬ê°€ê²Œ í•¨
 
-        SceneManager.LoadScene(0);                  // °ÔÀÓ SceneÀ» ºÒ·¯¿È
+        SceneManager.LoadScene(0);                  // ê²Œì„ Sceneì„ ë¶ˆëŸ¬ì˜´
 
-        SoundManager.instance.PlaySound("Button");  // ¹öÆ°À» ´©¸£´Â »ç¿îµå Ãâ·Â
+        SoundManager.instance.PlaySound("Button");  // ë²„íŠ¼ì„ ëˆ„ë¥´ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
     }
 
-    public void Option() // ¿É¼Ç UI¿¡ ´ëÇÑ ÇÔ¼ö
+    public void Option() // ì˜µì…˜ UIì— ëŒ€í•œ í•¨ìˆ˜
     {
         is_option = !is_option;
         is_live = !is_live;
 
-        if (is_show)                                // esc Ã¢À» ÄÓ ¶§ ¼³¸íÀ» º¸¿©ÁÖ°í ÀÖ¾ú´Ù¸é 
-            is_show = !is_show;                     // esc Ã¢À» ´İ¾ÒÀ» ¶§ ¼³¸í Ã¢À» ´İÀ½
+        if (is_show)                                // esc ì°½ì„ ì¼¤ ë•Œ ì„¤ëª…ì„ ë³´ì—¬ì£¼ê³  ìˆì—ˆë‹¤ë©´ 
+            is_show = !is_show;                     // esc ì°½ì„ ë‹«ì•˜ì„ ë•Œ ì„¤ëª… ì°½ì„ ë‹«ìŒ
 
-        option.gameObject.SetActive(is_option);     // ±× ´ÙÀ½ ¿É¼ÇÀÌ true »óÅÂ·Î ¹Ù²î¾ú´Ù¸é ºñÈ°¼ºÈ­ µÇ¾î ÀÖ´ø ESC Ã¢ UI¸¦ È°¼ºÈ­ ½ÃÅ´
-        Time.timeScale = is_option == true ? 0 : 1; // esc Ã¢ÀÌ ¿­·Á ÀÖ´Ù¸é(is_option == true) ½Ã°£À» ¸ØÃß°í ¾Æ´Ï¶ó¸é(is_option == false) ½Ã°£À» Èå¸£°Ô ÇÔ
+        option.gameObject.SetActive(is_option);     // ê·¸ ë‹¤ìŒ ì˜µì…˜ì´ true ìƒíƒœë¡œ ë°”ë€Œì—ˆë‹¤ë©´ ë¹„í™œì„±í™” ë˜ì–´ ìˆë˜ ESC ì°½ UIë¥¼ í™œì„±í™” ì‹œí‚´
+        Time.timeScale = is_option == true ? 0 : 1; // esc ì°½ì´ ì—´ë ¤ ìˆë‹¤ë©´(is_option == true) ì‹œê°„ì„ ë©ˆì¶”ê³  ì•„ë‹ˆë¼ë©´(is_option == false) ì‹œê°„ì„ íë¥´ê²Œ í•¨
 
-        SoundManager.instance.PlaySound("Button");  // ¹öÆ°À» ´©¸£´Â »ç¿îµå Ãâ·Â
+        SoundManager.instance.PlaySound("Button");  // ë²„íŠ¼ì„ ëˆ„ë¥´ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
     }
 
     public void ClickShowText()
     {
         is_show_text = !is_show_text;
 
-        // is_show_textÀÇ °ª¿¡ µû¶ó ¹öÆ° ÅØ½ºÆ®¸¦ ´Ù¸£°Ô ÇÔ (¼û±â±â / º¸ÀÌ±â)
+        // is_show_textì˜ ê°’ì— ë”°ë¼ ë²„íŠ¼ í…ìŠ¤íŠ¸ë¥¼ ë‹¤ë¥´ê²Œ í•¨ (ìˆ¨ê¸°ê¸° / ë³´ì´ê¸°)
         if (is_show_text)
-            stage_bnt_text.text = "¼û±â±â";
+            stage_bnt_text.text = "ìˆ¨ê¸°ê¸°";
         else
-            stage_bnt_text.text = "º¸ÀÌ±â";
+            stage_bnt_text.text = "ë³´ì´ê¸°";
 
-        SoundManager.instance.PlaySound("Button"); // ¹öÆ°À» ´©¸£´Â »ç¿îµå Ãâ·Â
+        SoundManager.instance.PlaySound("Button"); // ë²„íŠ¼ì„ ëˆ„ë¥´ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
     }
 
     public void ClickShowBnt()
     {
         is_show_bnt = !is_show_bnt;
 
-        // is_show_bntÀÇ °ª¿¡ µû¶ó ¹öÆ° ÅØ½ºÆ®¸¦ ´Ù¸£°Ô ÇÔ (º¸ÀÌ±â / ¼û±â±â)
+        // is_show_bntì˜ ê°’ì— ë”°ë¼ ë²„íŠ¼ í…ìŠ¤íŠ¸ë¥¼ ë‹¤ë¥´ê²Œ í•¨ (ë³´ì´ê¸° / ìˆ¨ê¸°ê¸°)
         if (is_show_bnt)
-            explan_bnt_text.text = "¼û±â±â";
+            explan_bnt_text.text = "ìˆ¨ê¸°ê¸°";
 
         else
-            explan_bnt_text.text = "º¸ÀÌ±â";
+            explan_bnt_text.text = "ë³´ì´ê¸°";
 
-        SoundManager.instance.PlaySound("Button"); // ¹öÆ°À» ´©¸£´Â »ç¿îµå Ãâ·Â
+        SoundManager.instance.PlaySound("Button"); // ë²„íŠ¼ì„ ëˆ„ë¥´ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
     }
 
-    public void ChangeBgm(int bgm_button) // ¹è°æÀ½ º¯°æ ¹öÆ°À» ´­·¶À» ¶§  /  ¹è¿­ bgm_button Áß ´©¸¥ ¹öÆ°ÀÇ ÀÎµ¦½º °ªÀ» intÇüÀ¸·Î ¹Ş¾Æ¼­ ¸Å°³º¯¼ö·Î »ç¿ëÇÔ 
+    public void ChangeBgm(int bgm_button) // ë°°ê²½ìŒ ë³€ê²½ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ  /  ë°°ì—´ bgm_button ì¤‘ ëˆ„ë¥¸ ë²„íŠ¼ì˜ ì¸ë±ìŠ¤ ê°’ì„ intí˜•ìœ¼ë¡œ ë°›ì•„ì„œ ë§¤ê°œë³€ìˆ˜ë¡œ ì‚¬ìš©í•¨ 
     {
-        SoundManager.instance.PlaySound("Button");                    // ¹öÆ°À» ´©¸£´Â »ç¿îµå¸¦ Ãâ·ÂÇÏ°í
+        SoundManager.instance.PlaySound("Button");                    // ë²„íŠ¼ì„ ëˆ„ë¥´ëŠ” ì‚¬ìš´ë“œë¥¼ ì¶œë ¥í•˜ê³ 
 
-        bgm_index = bgm_button;                                       // ÀúÀåÇÏ±â ½±°Ô ÇÏ±â À§ÇØ ¹Ş¾Æ¿È
-        bgm_player.clip = SoundManager.instance.bgm_clips[bgm_index]; // ¹è°æÀ½ ÇÃ·¹ÀÌ¾î¿¡ ¹æ±İ ¹ŞÀº bgm_index °ª¿¡ ÇØ´çÇÏ´Â ¹è°æÀ½À¸·Î ¼³Á¤ ÈÄ
-        bgm_player.Play();                                            // ¹è°æÀ½À» ÇÃ·¹ÀÌÇÔ
+        bgm_index = bgm_button;                                       // ì €ì¥í•˜ê¸° ì‰½ê²Œ í•˜ê¸° ìœ„í•´ ë°›ì•„ì˜´
+        bgm_player.clip = SoundManager.instance.bgm_clips[bgm_index]; // ë°°ê²½ìŒ í”Œë ˆì´ì–´ì— ë°©ê¸ˆ ë°›ì€ bgm_index ê°’ì— í•´ë‹¹í•˜ëŠ” ë°°ê²½ìŒìœ¼ë¡œ ì„¤ì • í›„
+        bgm_player.Play();                                            // ë°°ê²½ìŒì„ í”Œë ˆì´í•¨
     }
 
-    void OnCollisionEnter2D(Collision2D collision) // Collision ÇÔ¼ö (Enter[Ãæµ¹ÇÑ ¼ø°£], Exit[Ãæµ¹ÀÌ ÇØÁ¦µÈ ¼ø°£], Stay[Ãæµ¹ ÁßÀÎ ¼ø°£ ¸Å ÇÁ·¡ÀÓ ½ÇÇà]) -> ¸» ±×´ë·Î "Ãæµ¹"ÇÏ¸é ½ÇÇà  /  Trigger ÇÔ¼ö (Enter[Ãæµ¹ÇÑ ¼ø°£], Exit[Ãæµ¹ÀÌ ÇØÁ¦µÈ ¼ø°£], Stay[Ãæµ¹ ÁßÀÎ ¼ø°£ ¸Å ÇÁ·¡ÀÓ ½ÇÇà]) -> Collision°ú ´Ş¸® ÇÑ ¹°Ã¼¿¡ ´Ù¸¥ ¹°Ã¼°¡ µé¾î¿À¸é ½ÇÇà
+    void OnCollisionEnter2D(Collision2D collision) // Collision í•¨ìˆ˜ (Enter[ì¶©ëŒí•œ ìˆœê°„], Exit[ì¶©ëŒì´ í•´ì œëœ ìˆœê°„], Stay[ì¶©ëŒ ì¤‘ì¸ ìˆœê°„ ë§¤ í”„ë˜ì„ ì‹¤í–‰]) -> ë§ ê·¸ëŒ€ë¡œ "ì¶©ëŒ"í•˜ë©´ ì‹¤í–‰  /  Trigger í•¨ìˆ˜ (Enter[ì¶©ëŒí•œ ìˆœê°„], Exit[ì¶©ëŒì´ í•´ì œëœ ìˆœê°„], Stay[ì¶©ëŒ ì¤‘ì¸ ìˆœê°„ ë§¤ í”„ë˜ì„ ì‹¤í–‰]) -> Collisionê³¼ ë‹¬ë¦¬ í•œ ë¬¼ì²´ì— ë‹¤ë¥¸ ë¬¼ì²´ê°€ ë“¤ì–´ì˜¤ë©´ ì‹¤í–‰
     {
-        if (collision.gameObject.tag == "Player") // GameManager ¿ÀºêÁ§Æ®¿Í ´êÀº ¹°Ã¼ÀÇ tag°¡ "Player"(ÇÃ·¹ÀÌ¾î)ÀÌ¸é ½ÇÇà  /  GameManager¸¦ ¾Æ·¡·Î ³»·È±â ¶§¹®¿¡ GameManager¿¡ ÇÃ·¹ÀÌ¾î°¡ ´ê¾Ò´Ù´Â °ÍÀº ÇÃ·¹ÀÌ¾î°¡ ¶³¾îÁ³´Ù´Â °ÍÀ» ÀÇ¹ÌÇÔ
+        if (collision.gameObject.tag == "Player") // GameManager ì˜¤ë¸Œì íŠ¸ì™€ ë‹¿ì€ ë¬¼ì²´ì˜ tagê°€ "Player"(í”Œë ˆì´ì–´)ì´ë©´ ì‹¤í–‰  /  GameManagerë¥¼ ì•„ë˜ë¡œ ë‚´ë ¸ê¸° ë•Œë¬¸ì— GameManagerì— í”Œë ˆì´ì–´ê°€ ë‹¿ì•˜ë‹¤ëŠ” ê²ƒì€ í”Œë ˆì´ì–´ê°€ ë–¨ì–´ì¡Œë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•¨
         {
                            
-            if (health > 1)                                                                 // ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀÌ 1º¸´Ù ¸¹À¸¸é (¶³¾îÁ®¼­ Á×´Â Ã¼·ÂÀÌ ¾Æ´Ï¶ó¸é)
+            if (health > 1)                                                                 // í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì´ 1ë³´ë‹¤ ë§ìœ¼ë©´ (ë–¨ì–´ì ¸ì„œ ì£½ëŠ” ì²´ë ¥ì´ ì•„ë‹ˆë¼ë©´)
             {
-                PlayerReposition();                                                         // ÇÃ·¹ÀÌ¾î¸¦ ¿øÁ¡À¸·Î µÇµ¹¸²
-                SoundManager.instance.PlaySound("Fall");                                    // ¶³¾îÁö´Â »ç¿îµå Ãâ·Â
+                PlayerReposition();                                                         // í”Œë ˆì´ì–´ë¥¼ ì›ì ìœ¼ë¡œ ë˜ëŒë¦¼
+                SoundManager.instance.PlaySound("Fall");                                    // ë–¨ì–´ì§€ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
             }
 
-            else                                                                            // Á×¾ú´Ù¸é
-                SoundManager.instance.PlaySound("Die");                                     // Á×´Â »ç¿îµå Ãâ·Â
+            else                                                                            // ì£½ì—ˆë‹¤ë©´
+                SoundManager.instance.PlaySound("Die");                                     // ì£½ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥
             
-            HealthDown();                                                                   // Ã¼·ÂÀ» °¨¼Ò ½ÃÅ´ 
+            HealthDown();                                                                   // ì²´ë ¥ì„ ê°ì†Œ ì‹œí‚´ 
         }
 
     }
 
-    void PlayerReposition() // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ¿øÁ¡À¸·Î µÇµ¹¸®´Â ÇÔ¼ö
+    void PlayerReposition() // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ì›ì ìœ¼ë¡œ ë˜ëŒë¦¬ëŠ” í•¨ìˆ˜
     {
-        player.VelocityZero();                                     // ³«ÇÏ ¼Óµµ¸¦ 0À¸·Î ¸¸µé°í
-        player.transform.position = new Vector3(-7.5f, -4.5f, -1); // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ¿øÁ¡À¸·Î µÇµ¹¸²
+        player.VelocityZero();                                     // ë‚™í•˜ ì†ë„ë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ê³ 
+        player.transform.position = new Vector3(-7.5f, -4.5f, -1); // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ì›ì ìœ¼ë¡œ ë˜ëŒë¦¼
     }
 
-    void LoadData() // ÀúÀåÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â
+    void LoadData() // ì €ì¥í•œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
     {
-        stages[stage_index].SetActive(true);                          // ÀúÀåµÈ ½ºÅ×ÀÌÁö¸¦ ºÒ·¯¿È
+        stages[stage_index].SetActive(true);                          // ì €ì¥ëœ ìŠ¤í…Œì´ì§€ë¥¼ ë¶ˆëŸ¬ì˜´
 
-        bgm_player.clip = SoundManager.instance.bgm_clips[bgm_index]; // ¹è°æÀ½À» ºÒ·¯¿Í¼­
-        bgm_player.Play();                                            // ¹è°æÀ½À» ÇÃ·¹ÀÌÇÔ
+        bgm_player.clip = SoundManager.instance.bgm_clips[bgm_index]; // ë°°ê²½ìŒì„ ë¶ˆëŸ¬ì™€ì„œ
+        bgm_player.Play();                                            // ë°°ê²½ìŒì„ í”Œë ˆì´í•¨
     }
 
-    public void Exit() // °ÔÀÓÀ» Á¾·áÇÏ´Â ÇÔ¼ö
+    public void Exit() // ê²Œì„ì„ ì¢…ë£Œí•˜ëŠ” í•¨ìˆ˜
     {
-        data_manager.JsonSave();                 // ÇöÀç µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑµÚ
+        data_manager.JsonSave();                 // í˜„ì¬ ë°ì´í„°ë¥¼ ì €ì¥í•œë’¤
 
-        SoundManager.instance.PlaySound("Exit"); // °ÔÀÓÀ» Á¾·áÇÏ´Â »ç¿îµå¸¦ Ãâ·ÂÇÏ°í
+        SoundManager.instance.PlaySound("Exit"); // ê²Œì„ì„ ì¢…ë£Œí•˜ëŠ” ì‚¬ìš´ë“œë¥¼ ì¶œë ¥í•˜ê³ 
          
-        Application.Quit();                      // °ÔÀÓÀ» Á¾·áÇÔ
+        Application.Quit();                      // ê²Œì„ì„ ì¢…ë£Œí•¨
     }
 }
