@@ -1,14 +1,14 @@
 # Unity_JumpKing
-● Simple Platformer Game
+- Simple Platformer Game
 
 # Control
-● Left Arrow or A = Left Move
+- Left Arrow or A = Left Move
 
-● Right Arrow or D = Right Move
+- Right Arrow or D = Right Move
 
-● Space Bar = Jump
+- Space Bar = Jump
 
-● LMB(Left Mouse Button) = interact with explanation button
+- LMB(Left Mouse Button) = interact with explanation button
 
 # Play Scene
 ### Kill Monster
